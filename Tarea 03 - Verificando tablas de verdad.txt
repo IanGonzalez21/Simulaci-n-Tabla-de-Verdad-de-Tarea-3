@@ -1,0 +1,29 @@
+
+CHIP Mux {
+    IN x,y,z;
+    OUT e,f;
+    
+    PARTS:
+
+    //Ecuacion 1, la salida es e
+
+    Not(in= x, out= Notx);
+    Not(in= y, out= Noty);
+    And(a=Noty , b=x , out=xNoty);
+    Or(a=xNoty , b=Notx , out=xNotyNotx);
+    And(a=x , b=y , out=Xy );
+    Or(a=Xy , b= xNotyNotx, out=XyxNotyNotx );
+    And(a=XyxNotyNotx , b=z , out= e );
+
+    //Ecuacion 2, la salida es f
+
+    Not(in= x, out= notx);
+    Not(in= y, out= noty);
+    Not(in=z , out=notz );
+    And(a=noty , b=z , out=znoty);
+    And(a=y , b=notz , out=ynotz );
+    Or(a=znoty , b=ynotz , out=ynotzznoty );
+    And(a=notx , b=ynotzznoty , out= ynotzznotynotx);
+    And(a=x , b=y , out=xy );
+    Or(a=xy , b=ynotzznotynotx , out=f );
+}
