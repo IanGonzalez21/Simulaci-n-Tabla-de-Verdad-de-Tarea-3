@@ -9,11 +9,14 @@ CHIP Mux {
 
     Not(in= x, out= Notx);
     Not(in= y, out= Noty);
-    And(a=Noty , b=x , out=xNoty);
-    Or(a=xNoty , b=Notx , out=xNotyNotx);
-    And(a=x , b=y , out=Xy );
-    Or(a=Xy , b= xNotyNotx, out=XyxNotyNotx );
-    And(a=XyxNotyNotx , b=z , out= e );
+    Not(in=z , out=Notz );
+    And(a=Noty , b=Notx , out=xNotNoty);
+    And(a=Notx , b=y , out=yNotx );
+    Or(a=yNotx , b=xNotNoty , out=yNotxxNotNoty);
+    And(a=x , b=Noty , out=xNoty );
+    Or(a=xNoty , b= yNotxxNotNoty, out=xNotyyNotxxNotNoty );
+    And(a=xNotyyNotxxNotNoty , b=Notz , out= e );
+
 
     //Ecuacion 2, la salida es f
 
@@ -26,4 +29,5 @@ CHIP Mux {
     And(a=notx , b=ynotzznoty , out= ynotzznotynotx);
     And(a=x , b=y , out=xy );
     Or(a=xy , b=ynotzznotynotx , out=f );
+
 }
